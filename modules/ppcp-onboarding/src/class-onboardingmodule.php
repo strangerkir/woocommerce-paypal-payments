@@ -41,6 +41,8 @@ class OnboardingModule implements ModuleInterface {
 	 * @param ContainerInterface|null $container The container.
 	 */
 	public function run( ContainerInterface $container = null ) {
+		OnboardingHelper::init( $this, $container );
+
 
 		$asset_loader = $container->get( 'onboarding.assets' );
 		/**
