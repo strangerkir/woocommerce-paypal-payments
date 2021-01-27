@@ -1,5 +1,4 @@
-function onboardingCallback(authCode, sharedId) {
-	const sandboxSwitchElement = document.querySelector('#ppcp-sandbox_on');
+function ppcp_onboarding_loginSeller(env, authCode, sharedId) {
 	fetch(
 		PayPalCommerceGatewayOnboarding.endpoint,
 		{
@@ -12,11 +11,19 @@ function onboardingCallback(authCode, sharedId) {
 					authCode: authCode,
 					sharedId: sharedId,
 					nonce: PayPalCommerceGatewayOnboarding.nonce,
-					env: sandboxSwitchElement && sandboxSwitchElement.checked ? 'sandbox' : 'production'
+					env: env
 				}
 			)
 		}
 	);
+}
+
+function ppcp_onboarding_sandboxCallback(...args) {
+	return ppcp_onboarding_loginSeller('sandbox', ...args);
+}
+
+function ppcp_onboarding_productionCallback(...args) {
+	return ppcp_onboarding_loginSeller('production', ...args);
 }
 
 /**

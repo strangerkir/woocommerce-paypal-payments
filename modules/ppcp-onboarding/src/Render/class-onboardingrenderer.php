@@ -70,11 +70,12 @@ class OnboardingRenderer {
 				$this->render_button(
 					$url,
 					$id,
-					$label
+					$label,
+					$is_production ? 'production' : 'sandbox',
 				);
 
 			$script_url = 'https://www.paypal.com/webapps/merchantboarding/js/lib/lightbox/partner.js'; ?>
-			<script>document.querySelectorAll('[data-paypal-onboard-complete=onboardingCallback]').forEach( (element) => { element.addEventListener('click', (e) => {if ('undefined' === typeof PAYPAL ) e.preventDefault(); }) });</script>
+			<script>document.querySelectorAll('[data-paypal-onboard-button]').forEach( (element) => { element.addEventListener('click', (e) => {if ('undefined' === typeof PAYPAL ) e.preventDefault(); }) });</script>
 			<script
 					id="paypal-js"
 					src="<?php echo esc_url( $script_url ); ?>"
@@ -95,13 +96,14 @@ class OnboardingRenderer {
 	 * @param string $id The ID of the button.
 	 * @param string $label The button text.
 	 */
-	private function render_button( string $url, string $id, string $label ) {
+	private function render_button( string $url, string $id, string $label, string $env ) {
 		?>
 					<a
 							target="_blank"
 							class="button-primary"
 							id="<?php echo esc_attr( $id ); ?>"
-							data-paypal-onboard-complete="onboardingCallback"
+							data-paypal-onboard-complete="ppcp_onboarding_<?php echo $env; ?>Callback"
+							data-paypal-onboard-button="true"
 							href="<?php echo esc_url( $url ); ?>"
 							data-paypal-button="true"
 					>
