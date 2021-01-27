@@ -181,21 +181,23 @@ const disconnect = (event) => {
 	);
 
 	// Prevent a possibly dirty form arising from this particular checkbox.
-	sandboxSwitchElement.addEventListener(
-		'click',
-		(event) => {
-			const value = event.target.checked;
+	if (sandboxSwitchElement) {
+		sandboxSwitchElement.addEventListener(
+			'click',
+			(event) => {
+				const value = event.target.checked;
 
-			toggleSandboxProduction( ! value );
+				toggleSandboxProduction( ! value );
 
-			event.preventDefault();
-			event.stopPropagation();
-			setTimeout( () => {
-				event.target.checked = value;
-				}, 1
-			);
-		}
-	);
+				event.preventDefault();
+				event.stopPropagation();
+				setTimeout( () => {
+					event.target.checked = value;
+					}, 1
+				);
+			}
+		);
+	}
 
 	// document.querySelectorAll('#mainform input[type="checkbox"]').forEach(
 	// 	(checkbox) => {
@@ -215,5 +217,6 @@ const disconnect = (event) => {
 			)
 		}
 	)
+
 
 })();
