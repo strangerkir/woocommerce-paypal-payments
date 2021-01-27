@@ -91,8 +91,9 @@ class OnboardingAssets {
 			'ppcp-onboarding',
 			'PayPalCommerceGatewayOnboarding',
 			array(
-				'endpoint' => home_url( \WC_AJAX::get_endpoint( LoginSellerEndpoint::ENDPOINT ) ),
-				'nonce'    => wp_create_nonce( $this->login_seller_endpoint::nonce() ),
+				'endpoint'      => home_url( \WC_AJAX::get_endpoint( LoginSellerEndpoint::ENDPOINT ) ),
+				'nonce'         => wp_create_nonce( $this->login_seller_endpoint::nonce() ),
+				'paypal_js_url' => 'https://www.paypal.com/webapps/merchantboarding/js/lib/lightbox/partner.js',
 			)
 		);
 

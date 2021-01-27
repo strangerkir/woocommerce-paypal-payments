@@ -216,7 +216,23 @@ const disconnect = (event) => {
 				}
 			)
 		}
-	)
+	);
 
+
+	// Onboarding buttons.
+	const onboardingButtons = document.querySelectorAll('[data-paypal-onboard-button]');
+	console.log('onboarding buttons = ', onboardingButtons.length);
+	onboardingButtons.forEach( (element) => { element.addEventListener('click', (e) => {if ('undefined' === typeof PAYPAL ) e.preventDefault(); }); });
+
+	if (onboardingButtons.length > 0) {
+		document.addEventListener(
+			'DOMContentLoaded',
+			() => {
+				const script = document.createElement('script');
+				script.setAttribute('src', PayPalCommerceGatewayOnboarding.paypal_js_url);
+				document.body.append(script);
+			}
+		);
+	}
 
 })();
