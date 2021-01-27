@@ -26,13 +26,24 @@ class OnboardingHelper {
 		return self::get_state()->current_state() >= State::STATE_ONBOARDED;
 	}
 
-	public static function render_button( $environment = '' ) {
+	public static function get_signup_link( $environment = 'sandbox' ) {
+		$environment = in_array( $environment, array( 'production', 'sandbox' ), true ) ? $environment : 'production';
+		$renderer    = self::$container->get( 'onboarding.render' );
+
+		return $renderer->get_signup_link( ( 'production' === $environment ) );
+	}
+
+	public static function enqueue_scripts() {
+		wp_enqueue_script( 'ppcp-onboarding' );
+	}
+
+	public static function render_button( $environment = 'sandbox' ) {
 		$environment = in_array( $environment, array( 'production', 'sandbox' ), true ) ? $environment : 'production';
 		$field_key   = 'ppcp_onboarding_' . $environment;
 
 		$fields = self::$container->get( 'wcgateway.settings.fields' );
 
-		wp_enqueue_script( 'ppcp-onboarding' );
+		self::enqueue_scripts();
 		woocommerce_form_field( $field_key, $fields[ $field_key ] );
 	}
 
