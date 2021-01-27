@@ -51,7 +51,7 @@ class OnboardingAssets {
 		LoginSellerEndpoint $login_seller_endpoint
 	) {
 
-		$this->module_url            = $module_url;
+		$this->module_url            = untrailingslashit( $module_url );
 		$this->state                 = $state;
 		$this->login_seller_endpoint = $login_seller_endpoint;
 	}
@@ -78,9 +78,6 @@ class OnboardingAssets {
 			1,
 			true
 		);
-		if ( ! $this->should_render_onboarding_script() ) {
-			return false;
-		}
 
 		$url = $this->module_url . '/assets/js/onboarding.js';
 		wp_register_script(
